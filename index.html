@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UTH Elearning - Đăng nhập</title>
+  <title>UTH - Login</title>
   <style>
     *{ box-sizing:border-box; }
     body{
@@ -17,7 +17,7 @@
       padding:16px;
     }
 
-    /* NỀN ẢNH */
+    /* Background image */
     .hero{
       width:min(1200px, 96vw);
       height:min(640px, 92vh);
@@ -27,69 +27,74 @@
       box-shadow:0 20px 60px rgba(0,0,0,.35);
       background:
         linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,.08)),
-        url("uth_bg.jpg"); /* đổi ảnh tại đây */
+        url("uth_bg.jpg"); /* <-- put your image as uth_bg.jpg */
       background-size:cover;
       background-position:center;
     }
 
-    /* CARD LOGIN */
+    /* Login card */
     .card{
       position:absolute;
       right:22px;
       top:22px;
-      width:420px;
+      width:520px;
       max-width:92vw;
       background:rgba(255,255,255,.92);
       backdrop-filter: blur(10px);
       border:1px solid rgba(255,255,255,.55);
-      border-radius:14px;
+      border-radius:18px;
       box-shadow:0 12px 35px rgba(0,0,0,.18);
-      padding:22px;
+      padding:22px 22px 18px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:12px;
       margin-bottom:10px;
     }
     .logo{
-      width:42px; height:42px;
-      border-radius:12px;
+      width:46px; height:46px;
+      border-radius:14px;
       background:#0054a6;
       color:#fff;
       display:flex;
       align-items:center;
       justify-content:center;
       font-weight:900;
+      letter-spacing:.5px;
+      font-size:16px;
     }
     .brand-text{
       text-align:left;
       line-height:1.1;
     }
-    .brand-text .small{ font-size:12px; color:#6b7280; font-weight:700; }
-    .brand-text .big{ font-size:16px; color:#111827; font-weight:900; }
+    .brand-text .big{
+      font-size:18px;
+      color:#111827;
+      font-weight:900;
+    }
 
     .title{
-      margin:10px 0 16px;
-      font-size:24px;
+      margin:14px 0 16px;
+      font-size:30px;
       font-weight:900;
-      color:#1f2a37;
+      color:#111827;
     }
 
     .field{ margin-bottom:14px; }
     .field label{
       display:block;
-      font-size:13px;
-      margin:0 0 6px;
-      color:#374151;
-      font-weight:800;
+      font-size:14px;
+      margin:0 0 8px;
+      color:#111827;
+      font-weight:900;
     }
     .field input{
       width:100%;
-      padding:12px 14px;
+      padding:14px 16px;
       border:1px solid #d6d6d6;
-      border-radius:10px;
+      border-radius:14px;
       outline:none;
       font-size:14px;
       background:#fff;
@@ -102,29 +107,32 @@
     .actions{
       display:flex;
       justify-content:flex-end;
-      gap:10px;
-      margin-top:6px;
+      gap:14px;
+      margin-top:10px;
     }
     .btn{
       border:none;
-      border-radius:10px;
-      padding:10px 16px;
+      border-radius:14px;
+      padding:12px 18px;
       cursor:pointer;
-      font-weight:800;
-      font-size:14px;
+      font-weight:900;
+      font-size:15px;
+      min-width:120px;
     }
     .btn-login{ background:#0a7a7a; color:#fff; }
     .btn-login:hover{ filter:brightness(.95); }
-    .btn-register{ background:#e9ecef; color:#0a7a7a; border:1px solid #d5d8dc; }
+    .btn-register{
+      background:#e9ecef;
+      color:#0a7a7a;
+      border:1px solid #d5d8dc;
+    }
     .btn-register:hover{ background:#dde2e7; }
 
     .links{
-      margin-top:12px;
+      margin-top:10px;
       display:flex;
-      justify-content:space-between;
-      align-items:center;
-      font-size:13px;
-      color:#374151;
+      justify-content:flex-end;
+      font-size:14px;
     }
     .links a{
       color:#e53935;
@@ -135,13 +143,13 @@
     .links a:hover{ text-decoration:underline; }
 
     .note{
-      margin-top:14px;
-      font-size:12px;
-      color:#6b7280;
+      margin-top:12px;
+      font-size:13px;
+      color:#374151;
       line-height:1.45;
     }
 
-    /* MODAL */
+    /* Modal */
     .modal{
       position:fixed;
       inset:0;
@@ -154,16 +162,16 @@
     }
     .modal.show{ display:flex; }
     .modal-content{
-      width:460px;
+      width:500px;
       max-width:95vw;
       background:#fff;
-      border-radius:14px;
+      border-radius:18px;
       box-shadow:0 20px 60px rgba(0,0,0,.35);
       padding:20px;
       position:relative;
     }
     .modal-content h2{
-      margin:6px 0 16px;
+      margin:8px 0 18px;
       font-size:22px;
       font-weight:900;
       text-align:center;
@@ -175,20 +183,20 @@
       position:absolute;
       top:10px;
       right:10px;
-      width:36px;
-      height:36px;
+      width:38px;
+      height:38px;
       border:none;
       border-radius:50%;
       background:#f1f1f1;
       cursor:pointer;
       font-size:18px;
-      line-height:36px;
+      line-height:38px;
     }
     .close:hover{ background:#e7e7e7; }
 
     .modal-actions{
       display:flex;
-      gap:10px;
+      gap:12px;
       margin-top:12px;
     }
     .modal-actions .btn{ flex:1; padding:12px; }
@@ -207,7 +215,7 @@
       cursor:pointer;
       user-select:none;
       color:#111827;
-      font-weight:800;
+      font-weight:900;
     }
 
     @media (max-width: 800px){
@@ -226,86 +234,85 @@
       <div class="brand">
         <div class="logo">UTH</div>
         <div class="brand-text">
-          <div class="small">Elearning Portal</div>
           <div class="big">University of Transport HCMC</div>
         </div>
       </div>
 
-      <div class="title">Đăng nhập hệ thống</div>
+      <div class="title">System Login</div>
 
       <div class="field">
-        <label for="loginUser">Tên người dùng</label>
-        <input id="loginUser" type="text" placeholder="Nhập tên người dùng">
+        <label for="loginUser">Username</label>
+        <input id="loginUser" type="text" placeholder="Enter username">
       </div>
+
       <div class="field">
-        <label for="loginPass">Mật khẩu</label>
-        <input id="loginPass" type="password" placeholder="Nhập mật khẩu">
+        <label for="loginPass">Password</label>
+        <input id="loginPass" type="password" placeholder="Enter password">
       </div>
 
       <div class="actions">
-        <button class="btn btn-register" type="button" onclick="openRegister()">Đăng ký</button>
-        <button class="btn btn-login" type="button" onclick="handleLogin()">Đăng nhập</button>
+        <button class="btn btn-register" type="button" onclick="openRegister()">Register</button>
+        <button class="btn btn-login" type="button" onclick="handleLogin()">Login</button>
       </div>
 
       <div class="links">
-        <span></span>
-        <a onclick="openForgot()">Quên mật khẩu?</a>
+        <a onclick="openForgot()">Forgot password?</a>
       </div>
 
       <div class="note">
-        * Demo giao diện (chưa nối backend). Bạn có thể tích hợp PHP/Node/Database sau.
+        * UI demo (backend not connected). You can integrate PHP/Node/Database later.
       </div>
     </div>
   </div>
 
-  <!-- ===== MODAL: ĐĂNG KÝ ===== -->
+  <!-- ===== MODAL: REGISTER ===== -->
   <div class="modal" id="registerModal" aria-hidden="true">
     <div class="modal-content">
       <button class="close" type="button" onclick="closeRegister()">×</button>
-      <h2 class="h-blue">ĐĂNG KÝ TÀI KHOẢN</h2>
+      <h2 class="h-blue">Create an Account</h2>
 
       <div class="field">
-        <label for="rUsername">Tên đăng nhập</label>
-        <input id="rUsername" type="text" placeholder="VD: khanhvy">
+        <label for="rUsername">Username</label>
+        <input id="rUsername" type="text" placeholder="e.g., khanhvy">
       </div>
 
       <div class="field">
-        <label for="rAccount">Tài khoản</label>
-        <input id="rAccount" type="text" placeholder="VD: uth12345">
+        <label for="rAccount">Account ID</label>
+        <input id="rAccount" type="text" placeholder="e.g., uth12345">
       </div>
 
       <div class="field">
-        <label for="rPassword">Mật khẩu</label>
-        <input id="rPassword" type="password" placeholder="Nhập mật khẩu">
+        <label for="rPassword">Password</label>
+        <input id="rPassword" type="password" placeholder="Enter a password">
       </div>
 
       <div class="field">
-        <label for="rPhone">Số điện thoại</label>
-        <input id="rPhone" type="tel" placeholder="VD: 0987654321">
+        <label for="rPhone">Phone Number</label>
+        <input id="rPhone" type="tel" placeholder="e.g., 0987654321">
       </div>
 
       <div class="field">
-        <label for="rGmail">Gmail</label>
-        <input id="rGmail" type="email" placeholder="VD: abc@gmail.com">
+        <label for="rGmail">Email</label>
+        <input id="rGmail" type="email" placeholder="e.g., abc@gmail.com">
       </div>
 
       <div class="modal-actions">
-        <button class="btn btn-login" type="button" onclick="handleRegister()">ĐĂNG KÝ</button>
-        <button class="btn btn-register" type="button" onclick="closeRegister()">HỦY</button>
+        <button class="btn btn-login" type="button" onclick="handleRegister()">Register</button>
+        <button class="btn btn-register" type="button" onclick="closeRegister()">Cancel</button>
       </div>
     </div>
   </div>
 
-  <!-- ===== MODAL: QUÊN MẬT KHẨU ===== -->
+  <!-- ===== MODAL: FORGOT PASSWORD ===== -->
   <div class="modal" id="forgotModal" aria-hidden="true">
     <div class="modal-content">
       <button class="close" type="button" onclick="closeForgot()">×</button>
-      <h2 class="h-red">KHÔI PHỤC MẬT KHẨU</h2>
+      <h2 class="h-red">Password Recovery</h2>
 
       <div class="radio-row">
         <label>
           <input type="radio" name="method" value="phone" checked onchange="updateForgotContact()">
-          Số điện thoại
+          Phone
         </label>
         <label>
           <input type="radio" name="method" value="email" onchange="updateForgotContact()">
@@ -314,18 +321,18 @@
       </div>
 
       <div class="field">
-        <label for="fpAccount">Tài khoản đăng nhập</label>
-        <input id="fpAccount" type="text" placeholder="Tài khoản đăng nhập">
+        <label for="fpAccount">Login Account</label>
+        <input id="fpAccount" type="text" placeholder="Enter your login account">
       </div>
 
       <div class="field">
-        <label id="fpContactLabel" for="fpContact">Số điện thoại</label>
-        <input id="fpContact" type="text" placeholder="Số điện thoại">
+        <label id="fpContactLabel" for="fpContact">Phone Number</label>
+        <input id="fpContact" type="text" placeholder="Enter your phone number">
       </div>
 
       <div class="modal-actions">
-        <button class="btn btn-login" type="button" onclick="handleForgot()">LẤY LẠI MẬT KHẨU</button>
-        <button class="btn btn-register" type="button" onclick="closeForgot()">ĐĂNG NHẬP</button>
+        <button class="btn btn-login" type="button" onclick="handleForgot()">Recover Password</button>
+        <button class="btn btn-register" type="button" onclick="closeForgot()">Back to Login</button>
       </div>
     </div>
   </div>
@@ -355,12 +362,12 @@
       forgotModal.setAttribute("aria-hidden","true");
     }
 
-    // click ngoài modal để đóng
+    // click outside modal to close
     [registerModal, forgotModal].forEach(m => {
       m.addEventListener("click", (e) => { if (e.target === m) m.classList.remove("show"); });
     });
 
-    // ESC để đóng
+    // ESC to close
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape"){ closeRegister(); closeForgot(); }
     });
@@ -368,8 +375,8 @@
     function handleLogin(){
       const u = document.getElementById("loginUser").value.trim();
       const p = document.getElementById("loginPass").value.trim();
-      if(!u || !p){ alert("Vui lòng nhập tên người dùng và mật khẩu!"); return; }
-      alert("Đăng nhập (demo) thành công!");
+      if(!u || !p){ alert("Please enter your username and password."); return; }
+      alert("Login successful (demo).");
       console.log("LOGIN:", {u,p});
     }
 
@@ -378,27 +385,27 @@
       const account  = document.getElementById("rAccount").value.trim();
       const password = document.getElementById("rPassword").value.trim();
       const phone    = document.getElementById("rPhone").value.trim();
-      const gmail    = document.getElementById("rGmail").value.trim();
+      const email    = document.getElementById("rGmail").value.trim();
 
-      if(!username || !account || !password || !phone || !gmail){
-        alert("Vui lòng nhập đầy đủ thông tin!");
+      if(!username || !account || !password || !phone || !email){
+        alert("Please fill in all fields.");
         return;
       }
       if(!/^\d+$/.test(phone)){
-        alert("Số điện thoại chỉ được chứa số!");
+        alert("Phone number must contain digits only.");
         return;
       }
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gmail)){
-        alert("Gmail không hợp lệ!");
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        alert("Invalid email address.");
         return;
       }
 
-      // demo: tự điền lại đăng nhập
+      // Demo: auto-fill login fields
       document.getElementById("loginUser").value = username;
       document.getElementById("loginPass").value = password;
 
-      alert("Đăng ký (demo) thành công! Đã tự điền lại để đăng nhập.");
-      console.log("REGISTER:", {username, account, password, phone, gmail});
+      alert("Registration successful (demo). Login fields have been filled.");
+      console.log("REGISTER:", {username, account, password, phone, email});
       closeRegister();
     }
 
@@ -412,12 +419,12 @@
       const input = document.getElementById("fpContact");
 
       if(method === "phone"){
-        label.textContent = "Số điện thoại";
-        input.placeholder = "Số điện thoại";
+        label.textContent = "Phone Number";
+        input.placeholder = "Enter your phone number";
         input.type = "text";
       }else{
         label.textContent = "Email";
-        input.placeholder = "Email";
+        input.placeholder = "Enter your email";
         input.type = "email";
       }
       input.value = "";
@@ -428,15 +435,15 @@
       const contact = document.getElementById("fpContact").value.trim();
       const method = getMethod();
 
-      if(!acc){ alert("Vui lòng nhập tài khoản đăng nhập!"); return; }
-      if(!contact){ alert("Vui lòng nhập " + (method==="phone" ? "số điện thoại" : "email") + "!"); return; }
+      if(!acc){ alert("Please enter your login account."); return; }
+      if(!contact){ alert("Please enter your " + (method==="phone" ? "phone number" : "email") + "."); return; }
 
       if(method === "phone"){
-        if(!/^\d+$/.test(contact)){ alert("Số điện thoại chỉ được chứa số!"); return; }
-        alert("Đã gửi hướng dẫn/mã khôi phục qua SĐT (demo).");
+        if(!/^\d+$/.test(contact)){ alert("Phone number must contain digits only."); return; }
+        alert("Recovery instructions sent via phone (demo).");
       }else{
-        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)){ alert("Email không hợp lệ!"); return; }
-        alert("Đã gửi hướng dẫn khôi phục qua Email (demo).");
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)){ alert("Invalid email address."); return; }
+        alert("Recovery instructions sent via email (demo).");
       }
 
       console.log("FORGOT:", {acc, method, contact});
