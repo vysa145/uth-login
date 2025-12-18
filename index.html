@@ -3,181 +3,223 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UTH - Đăng nhập / Đăng ký / Quên mật khẩu</title>
+  <title>UTH Elearning - Đăng nhập</title>
   <style>
+    *{ box-sizing:border-box; }
     body{
-      font-family: Arial, sans-serif;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      min-height:100vh;
-      background:#f4f4f4;
       margin:0;
-      padding:18px;
+      font-family: Arial, sans-serif;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#0b2a3a;
+      padding:16px;
     }
+
+    /* ====== NỀN ẢNH (dùng đúng ảnh bạn gửi) ====== */
+    .hero{
+      width:min(1200px, 96vw);
+      height:min(640px, 92vh);
+      border-radius:14px;
+      overflow:hidden;
+      position:relative;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.28), rgba(0,0,0,.08)),
+        url("uth_bg.jpg"); /* <-- đặt ảnh bạn gửi thành uth_bg.jpg */
+      background-size:cover;
+      background-position:center;
+    }
+
+    /* ====== CARD LOGIN BÊN PHẢI ====== */
     .card{
-      width:360px;
-      background:#fff;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,.12);
+      position:absolute;
+      right:22px;
+      top:22px;
+      width:420px;
+      max-width:92vw;
+      background:rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:14px;
+      box-shadow:0 12px 35px rgba(0,0,0,.18);
       padding:22px;
-      text-align:center;
     }
-    h2{ margin:8px 0 18px; letter-spacing:.5px; }
-    .title-blue{ color:#0054a6; }
-    .title-red{ color:#e53935; }
+    .title{
+      margin:6px 0 16px;
+      font-size:26px;
+      font-weight:800;
+      color:#1f2a37;
+    }
 
-    .field{ text-align:left; margin-bottom:12px; }
-    .field label{ display:block; font-size:14px; margin-bottom:6px; color:#333; }
-    input{
+    .field{ margin-bottom:14px; }
+    .field input{
       width:100%;
-      padding:10px 12px;
-      border:1px solid #ddd;
-      border-radius:6px;
-      box-sizing:border-box;
-      font-size:14px;
+      padding:12px 14px;
+      border:1px solid #d6d6d6;
+      border-radius:10px;
       outline:none;
+      font-size:14px;
+      background:#fff;
     }
-    input:focus{
-      border-color:#0054a6;
-      box-shadow:0 0 0 3px rgba(0,84,166,.12);
+    .field input:focus{
+      border-color:#0a7a7a;
+      box-shadow:0 0 0 3px rgba(10,122,122,.14);
     }
 
-    .actions{ display:flex; gap:10px; margin-top:12px; }
-    button{
-      flex:1;
-      padding:10px;
+    .actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:10px;
+      margin-top:4px;
+    }
+    .btn{
       border:none;
-      border-radius:6px;
+      border-radius:10px;
+      padding:10px 16px;
       cursor:pointer;
-      font-weight:bold;
+      font-weight:700;
       font-size:14px;
     }
-    .btn-primary{ background:#0054a6; color:#fff; }
-    .btn-primary:hover{ background:#004485; }
-    .btn-teal{ background:#008b8b; color:#fff; }
-    .btn-teal:hover{ background:#007777; }
+    .btn-login{ background:#0a7a7a; color:#fff; }
+    .btn-login:hover{ filter:brightness(.95); }
+    .btn-register{ background:#e9ecef; color:#0a7a7a; border:1px solid #d5d8dc; }
+    .btn-register:hover{ background:#dde2e7; }
 
-    .btn-secondary{
-      background:#e0e0e0;
-      color:#0054a6;
-      border:1px solid #d0d0d0;
-    }
-    .btn-secondary:hover{ background:#d5d5d5; }
-
-    .linkline{
-      margin-top:14px;
+    .links{
+      margin-top:12px;
+      display:flex;
+      justify-content:flex-end;
+      gap:14px;
       font-size:13px;
-      color:#666;
     }
-    .linkline a{
-      color:#e53935;
-      font-weight:bold;
+    .links a{
+      color:#1f2a37;
       text-decoration:none;
+      opacity:.85;
+      cursor:pointer;
     }
-    .linkline a:hover{ text-decoration:underline; }
+    .links a:hover{ text-decoration:underline; opacity:1; }
 
-    .note{
-      margin-top:10px;
-      font-size:12px;
-      color:#777;
-      line-height:1.45;
-    }
-
-    /* Modal (Đăng ký & Quên mật khẩu) */
+    /* ====== MODAL ====== */
     .modal{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.35);
+      background:rgba(0,0,0,.45);
       display:none;
       align-items:center;
       justify-content:center;
       padding:18px;
+      z-index:50;
     }
     .modal.show{ display:flex; }
+
     .modal-content{
-      width:420px;
-      max-width:100%;
+      width:440px;
+      max-width:95vw;
       background:#fff;
-      border-radius:12px;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);
-      padding:22px;
+      border-radius:14px;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      padding:20px;
       position:relative;
+    }
+
+    .modal-content h2{
+      margin:6px 0 16px;
+      font-size:22px;
+      font-weight:800;
       text-align:center;
     }
+    .h-blue{ color:#0054a6; }
+    .h-red{ color:#e53935; }
+
     .close{
       position:absolute;
-      right:12px;
       top:10px;
-      width:34px;
-      height:34px;
+      right:10px;
+      width:36px;
+      height:36px;
       border:none;
       border-radius:50%;
       background:#f1f1f1;
       cursor:pointer;
       font-size:18px;
-      line-height:34px;
+      line-height:36px;
     }
     .close:hover{ background:#e7e7e7; }
+
+    .modal .field label{
+      display:block;
+      font-size:13px;
+      margin:0 0 6px;
+      color:#333;
+      font-weight:700;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+    }
+    .modal-actions .btn{ flex:1; padding:12px; }
 
     .radio-row{
       display:flex;
       justify-content:center;
       gap:24px;
-      margin:8px 0 14px;
-      font-size:16px;
+      margin:4px 0 14px;
+      font-size:14px;
     }
     .radio-row label{
       display:flex;
-      gap:10px;
+      gap:8px;
       align-items:center;
       cursor:pointer;
       user-select:none;
       color:#333;
+      font-weight:700;
     }
 
-    .bottom-link{
-      margin-top:14px;
-      color:#e53935;
-      font-weight:bold;
-      cursor:pointer;
-      user-select:none;
+    @media (max-width: 800px){
+      .card{
+        left:50%;
+        transform:translateX(-50%);
+        right:auto;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- ====== LOGIN CARD ====== -->
-  <div class="card">
-    <h2 class="title-blue">ĐĂNG NHẬP UTH</h2>
+  <div class="hero">
+    <!-- ===== LOGIN CARD ===== -->
+    <div class="card">
+      <div class="title">Đăng nhập vào Elearning</div>
 
-    <div class="field">
-      <label for="loginUser">Tên đăng nhập / Tài khoản</label>
-      <input id="loginUser" type="text" placeholder="Nhập tên đăng nhập hoặc tài khoản">
+      <div class="field">
+        <input id="loginUser" type="text" placeholder="Tên người dùng">
+      </div>
+      <div class="field">
+        <input id="loginPass" type="password" placeholder="Mật khẩu">
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-register" type="button" onclick="openRegister()">Đăng ký</button>
+        <button class="btn btn-login" type="button" onclick="handleLogin()">Đăng nhập</button>
+      </div>
+
+      <div class="links">
+        <a onclick="openForgot()">Quên mật khẩu?</a>
+      </div>
     </div>
-
-    <div class="field">
-      <label for="loginPass">Mật khẩu</label>
-      <input id="loginPass" type="password" placeholder="Nhập mật khẩu">
-    </div>
-
-    <div class="actions">
-      <button class="btn-teal" type="button" onclick="handleLogin()">ĐĂNG NHẬP</button>
-      <button class="btn-secondary" type="button" onclick="openRegister()">ĐĂNG KÝ</button>
-    </div>
-
-    <div class="linkline">
-      <a href="#" onclick="openForgot(); return false;">QUÊN MẬT KHẨU?</a>
-    </div>
-
-    <div class="note">Demo giao diện. Bạn có thể nối backend/DB sau.</div>
   </div>
 
-  <!-- ====== MODAL ĐĂNG KÝ ====== -->
+  <!-- ===== MODAL: ĐĂNG KÝ ===== -->
   <div class="modal" id="registerModal" aria-hidden="true">
     <div class="modal-content">
-      <button class="close" type="button" onclick="closeRegister()" aria-label="Đóng">×</button>
-      <h2 class="title-blue">ĐĂNG KÝ TÀI KHOẢN</h2>
+      <button class="close" type="button" onclick="closeRegister()">×</button>
+      <h2 class="h-blue">ĐĂNG KÝ TÀI KHOẢN</h2>
 
       <div class="field">
         <label for="rUsername">Tên đăng nhập</label>
@@ -204,45 +246,44 @@
         <input id="rGmail" type="email" placeholder="VD: abc@gmail.com">
       </div>
 
-      <div class="actions">
-        <button class="btn-primary" type="button" onclick="handleRegister()">ĐĂNG KÝ</button>
-        <button class="btn-secondary" type="button" onclick="closeRegister()">HỦY</button>
+      <div class="modal-actions">
+        <button class="btn btn-login" type="button" onclick="handleRegister()">ĐĂNG KÝ</button>
+        <button class="btn btn-register" type="button" onclick="closeRegister()">HỦY</button>
       </div>
-
-      <div class="note">Kiểm tra: nhập đủ, SĐT là số, Gmail đúng định dạng.</div>
     </div>
   </div>
 
-  <!-- ====== MODAL QUÊN MẬT KHẨU (KHÔI PHỤC) ====== -->
+  <!-- ===== MODAL: QUÊN MẬT KHẨU ===== -->
   <div class="modal" id="forgotModal" aria-hidden="true">
     <div class="modal-content">
-      <button class="close" type="button" onclick="closeForgot()" aria-label="Đóng">×</button>
-      <h2 class="title-red">KHÔI PHỤC MẬT KHẨU</h2>
+      <button class="close" type="button" onclick="closeForgot()">×</button>
+      <h2 class="h-red">KHÔI PHỤC MẬT KHẨU</h2>
 
       <div class="radio-row">
         <label>
-          <input type="radio" name="method" value="phone" checked onchange="updateForgotLabel()">
-          <span>Số điện thoại</span>
+          <input type="radio" name="method" value="phone" checked onchange="updateForgotContact()">
+          Số điện thoại
         </label>
         <label>
-          <input type="radio" name="method" value="email" onchange="updateForgotLabel()">
-          <span>Email</span>
+          <input type="radio" name="method" value="email" onchange="updateForgotContact()">
+          Email
         </label>
       </div>
 
       <div class="field">
+        <label for="fpAccount">Tài khoản đăng nhập</label>
         <input id="fpAccount" type="text" placeholder="Tài khoản đăng nhập">
       </div>
 
       <div class="field">
+        <label id="fpContactLabel" for="fpContact">Số điện thoại</label>
         <input id="fpContact" type="text" placeholder="Số điện thoại">
       </div>
 
-      <button class="btn-teal" type="button" style="width:100%; margin-top:10px;" onclick="handleForgot()">
-        LẤY LẠI MẬT KHẨU
-      </button>
-
-      <div class="bottom-link" onclick="closeForgot()">ĐĂNG NHẬP</div>
+      <div class="modal-actions">
+        <button class="btn btn-login" type="button" onclick="handleForgot()">LẤY LẠI MẬT KHẨU</button>
+        <button class="btn btn-register" type="button" onclick="closeForgot()">ĐĂNG NHẬP</button>
+      </div>
     </div>
   </div>
 
@@ -264,49 +305,29 @@
       forgotModal.classList.add("show");
       forgotModal.setAttribute("aria-hidden","false");
       document.getElementById("fpAccount").focus();
-      updateForgotLabel();
+      updateForgotContact();
     }
     function closeForgot(){
       forgotModal.classList.remove("show");
       forgotModal.setAttribute("aria-hidden","true");
     }
 
-    // click outside to close
-    [registerModal, forgotModal].forEach(modal => {
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) modal.classList.remove("show");
-      });
+    // click ngoài modal để đóng
+    [registerModal, forgotModal].forEach(m => {
+      m.addEventListener("click", (e) => { if (e.target === m) m.classList.remove("show"); });
     });
 
-    // ESC to close
+    // ESC để đóng
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closeRegister();
-        closeForgot();
-      }
+      if (e.key === "Escape"){ closeRegister(); closeForgot(); }
     });
-
-    function getMethod(){
-      return document.querySelector('input[name="method"]:checked').value;
-    }
-
-    function updateForgotLabel(){
-      const method = getMethod();
-      const fpContact = document.getElementById("fpContact");
-      fpContact.value = "";
-      fpContact.placeholder = (method === "phone") ? "Số điện thoại" : "Email";
-      fpContact.type = (method === "phone") ? "text" : "email";
-    }
 
     function handleLogin(){
-      const user = document.getElementById("loginUser").value.trim();
-      const pass = document.getElementById("loginPass").value.trim();
-      if(!user || !pass){
-        alert("Vui lòng nhập tài khoản và mật khẩu!");
-        return;
-      }
-      alert("Đăng nhập (demo) thành công!\nTài khoản: " + user);
-      console.log("LOGIN:", {user, pass});
+      const u = document.getElementById("loginUser").value.trim();
+      const p = document.getElementById("loginPass").value.trim();
+      if(!u || !p){ alert("Vui lòng nhập tên người dùng và mật khẩu!"); return; }
+      alert("Đăng nhập (demo) thành công!");
+      console.log("LOGIN:", {u,p});
     }
 
     function handleRegister(){
@@ -329,7 +350,6 @@
         return;
       }
 
-      // demo: tự điền lại đăng nhập
       document.getElementById("loginUser").value = username;
       document.getElementById("loginPass").value = password;
 
@@ -338,31 +358,40 @@
       closeRegister();
     }
 
+    function getMethod(){
+      return document.querySelector('input[name="method"]:checked').value;
+    }
+
+    function updateForgotContact(){
+      const method = getMethod();
+      const label = document.getElementById("fpContactLabel");
+      const input = document.getElementById("fpContact");
+
+      if(method === "phone"){
+        label.textContent = "Số điện thoại";
+        input.placeholder = "Số điện thoại";
+        input.type = "text";
+      }else{
+        label.textContent = "Email";
+        input.placeholder = "Email";
+        input.type = "email";
+      }
+      input.value = "";
+    }
+
     function handleForgot(){
       const acc = document.getElementById("fpAccount").value.trim();
       const contact = document.getElementById("fpContact").value.trim();
       const method = getMethod();
 
-      if(!acc){
-        alert("Vui lòng nhập tài khoản đăng nhập!");
-        return;
-      }
-      if(!contact){
-        alert("Vui lòng nhập " + (method === "phone" ? "số điện thoại" : "email") + "!");
-        return;
-      }
+      if(!acc){ alert("Vui lòng nhập tài khoản đăng nhập!"); return; }
+      if(!contact){ alert("Vui lòng nhập " + (method==="phone" ? "số điện thoại" : "email") + "!"); return; }
 
       if(method === "phone"){
-        if(!/^\d+$/.test(contact)){
-          alert("Số điện thoại chỉ được chứa số!");
-          return;
-        }
+        if(!/^\d+$/.test(contact)){ alert("Số điện thoại chỉ được chứa số!"); return; }
         alert("Đã gửi hướng dẫn/mã khôi phục qua SĐT (demo).");
       }else{
-        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)){
-          alert("Email không hợp lệ!");
-          return;
-        }
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)){ alert("Email không hợp lệ!"); return; }
         alert("Đã gửi hướng dẫn khôi phục qua Email (demo).");
       }
 
